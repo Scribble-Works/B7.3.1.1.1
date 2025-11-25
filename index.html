@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angle Classifier Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Angle Classifier</h1>
+
+        <div id="start-screen" class="screen">
+            <p>Test your knowledge! Classify 20 angles correctly to get a high score.</p>
+            <button id="start-button" onclick="startGame()">Start Game</button>
+        </div>
+
+        <div id="game-container" style="display: none;">
+            <p>Classify the angle measurement (Question <span id="question-number">1</span>/20):</p>
+
+            <div id="angle-display">?°</div>
+
+            <div class="button-group">
+                <button onclick="checkAnswer('Acute')">Acute</button>
+                <button onclick="checkAnswer('Right')">Right</button>
+                <button onclick="checkAnswer('Obtuse')">Obtuse</button>
+                <button onclick="checkAnswer('Reflex')">Reflex</button>
+            </div>
+            
+            <div id="feedback">Choose a classification!</div>
+            <div id="score">Score: 0</div>
+            
+            <button id="next-button" onclick="newAngle()" disabled>Next Angle</button>
+        </div>
+
+        <div id="game-over-screen" class="screen" style="display: none;">
+            <h2>Game Over! 🏆</h2>
+            <p>You completed all 20 questions.</p>
+            <p>Final Score: <span id="final-score">0</span></p>
+            <button onclick="window.location.reload()">Play Again</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
