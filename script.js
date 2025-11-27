@@ -28,7 +28,6 @@ function toggleButtons(enable) {
     buttons.forEach(button => {
         button.disabled = !enable;
     });
-    // Update answerPending flag only when enabling buttons for a new question
     if (enable) {
         answerPending = true;
     } else {
@@ -36,12 +35,8 @@ function toggleButtons(enable) {
     }
 }
 
-
 // --- GAME STATE FUNCTIONS ---
 
-/**
- * Starts the game, hides the start screen, and shows the game container.
- */
 function startGame() {
     document.getElementById('start-screen').style.display = 'none';
     document.getElementById('game-container').style.display = 'block';
@@ -53,38 +48,27 @@ function startGame() {
     newAngle();
 }
 
-/**
- * Ends the game and displays the game over screen.
- */
 function endGame() {
     document.getElementById('game-container').style.display = 'none';
     document.getElementById('game-over-screen').style.display = 'block';
     document.getElementById('final-score').textContent = score;
-    // 
 }
 
-/**
- * Generates a random angle and updates the display.
- */
 function newAngle() {
     if (questionCount >= MAX_QUESTIONS) {
         endGame();
         return;
     }
 
-    // Question count and display update
     questionCount++;
     document.getElementById('question-number').textContent = questionCount;
     
-    // Generate a random angle between 1 and 359 degrees.
     const specialAngles = [90];
     let angle = Math.floor(Math.random() * 359) + 1;
 
-    // 1 in 5 chance of generating a Right angle (90)
     if (Math.random() < 0.2) {
         currentAngle = specialAngles[0];
     } else {
-        // Exclude 180 (Straight Angle) and 360 (Full Rotation)
         if (angle === 180) angle = 179; 
         currentAngle = angle;
     }
@@ -93,42 +77,42 @@ function newAngle() {
     document.getElementById('feedback').textContent = "Choose a classification!";
     document.getElementById('feedback').style.color = '#333';
     
-    // Enable classification buttons, disable 'Next Angle' button
     toggleButtons(true);
     document.getElementById('next-button').disabled = true;
 }
 
-/**
- * Checks the user's selected answer against the correct classification.
- */
 function checkAnswer(userChoice) {
-    // Crucial check: only proceed if an answer is pending (buttons are enabled)
-    if (!answerPending) return; 
+    if (!answerPending) return;
 
     const correctAnswer = getClassification(currentAngle);
     const feedbackElement = document.getElementById('feedback');
     const scoreElement = document.getElementById('score');
 
-    // Disable buttons immediately after a choice is made
     toggleButtons(false);
-    
+
+    // Play sound based on correctness
+    const correctSound = document.getElementById('correctSound');
+    const incorrectSound = document.getElementById('incorrectSound');
+
     if (userChoice === correctAnswer) {
         score++;
         feedbackElement.textContent = `✅ Correct! ${currentAngle}° is an ${correctAnswer} angle.`;
-        feedbackElement.style.color = '#28a745'; // Green
+        feedbackElement.style.color = '#28a745';
+        correctSound.currentTime = 0;
+        correctSound.play().catch(() => {});
     } else {
         feedbackElement.textContent = `❌ Incorrect. The correct answer is ${correctAnswer}.`;
-        feedbackElement.style.color = '#dc3545'; // Red
+        feedbackElement.style.color = '#dc3545';
+        incorrectSound.currentTime = 0;
+        incorrectSound.play().catch(() => {});
     }
 
     scoreElement.textContent = `Score: ${score}`;
 
-    // If this was the last question, automatically move to end game after feedback delay
     if (questionCount === MAX_QUESTIONS) {
-        document.getElementById('next-button').disabled = true; // Disable "Next" on the last question
+        document.getElementById('next-button').disabled = true;
         setTimeout(endGame, 2000);
     } else {
-        // Otherwise, enable the "Next Angle" button
         document.getElementById('next-button').disabled = false;
     }
 }
