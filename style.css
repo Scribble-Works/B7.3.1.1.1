@@ -1,34 +1,60 @@
+/* General Body & Container */
 body {
-    font-family: sans-serif;
+    font-family: 'Segoe UI', system-ui, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
     background-color: #f0f4f8;
+    color: #333;
 }
 
 .container {
     background-color: #ffffff;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 90%;
     max-width: 450px;
 }
 
+/* Headings */
 h1 {
     color: #334e68;
     margin-bottom: 20px;
+    font-size: 1.8em;
 }
 
-/* Screen Styling (Start and Game Over) */
+h2 {
+    color: #334e68;
+    margin: 15px 0 10px;
+    font-size: 1.4em;
+}
+
+h3 {
+    color: #4a6582;
+    margin: 15px 0 10px;
+    font-size: 1.2em;
+}
+
+/* Lists */
+ul {
+    text-align: left;
+    margin: 10px auto 15px;
+    padding-left: 20px;
+    max-width: 320px;
+    line-height: 1.5;
+}
+
+/* Screens (Start / Game Over) */
 .screen {
     padding: 20px;
-    border: 1px dashed #ccc;
+    border: 1px dashed #adb5bd;
     border-radius: 8px;
     margin-bottom: 20px;
+    background-color: #fafcff;
 }
 
 /* Angle Display */
@@ -37,31 +63,49 @@ h1 {
     font-weight: bold;
     color: #007bff;
     margin: 20px 0;
-    padding: 10px;
+    padding: 15px;
     border: 3px solid #007bff;
     border-radius: 8px;
     background-color: #e6f2ff;
+    min-height: 1.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Classification Buttons */
+/* Button Group - Classification Choices */
+.button-group {
+    margin: 20px 0;
+}
+
 .button-group button {
     padding: 10px 15px;
     margin: 5px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 1em;
+    font-weight: 600;
     background-color: #28a745;
     color: white;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, transform 0.1s;
+    width: 45%;
+    max-width: 130px;
+    box-sizing: border-box;
 }
 
 .button-group button:hover {
     background-color: #1e7e34;
 }
 
-/* NEXT/START Button Styling */
-#start-button, #next-button, #game-over-screen button {
+.button-group button:active {
+    transform: scale(0.98);
+}
+
+/* Primary Action Buttons (Start, Next, Play Again) */
+#start-button,
+#next-button,
+#game-over-screen button {
     padding: 12px 25px;
     margin-top: 15px;
     border: none;
@@ -69,29 +113,67 @@ h1 {
     cursor: pointer;
     font-size: 1.1em;
     font-weight: bold;
-    background-color: #ffc107; /* Yellow/Orange color for action buttons */
-    color: #333;
-    transition: background-color 0.2s;
+    background-color: #ffc107; /* Warm yellow */
+    color: #212529;
+    transition: background-color 0.2s, transform 0.1s;
+    width: auto;
+    min-width: 140px;
 }
 
-#start-button:hover, #next-button:hover, #game-over-screen button:hover {
+#start-button:hover,
+#next-button:hover,
+#game-over-screen button:hover {
     background-color: #e0a800;
+}
+
+#start-button:active,
+#next-button:active,
+#game-over-screen button:active {
+    transform: scale(0.98);
 }
 
 #next-button:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
+    transform: none;
 }
 
-/* Feedback and Score */
+/* Feedback & Score */
 #feedback {
     margin: 15px 0;
-    font-size: 1.2em;
-    min-height: 30px; 
+    font-size: 1.15em;
+    min-height: 28px;
+    font-weight: 600;
+    color: #495057;
 }
 
 #score {
     font-weight: bold;
     margin-bottom: 15px;
     color: #333;
+    font-size: 1.1em;
+}
+
+/* Accessibility: Focus Styles */
+button:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+
+    #angle-display {
+        font-size: 3.2em;
+        padding: 12px;
+    }
+
+    .button-group button {
+        width: 48%;
+        font-size: 0.95em;
+        padding: 9px 12px;
+    }
 }
